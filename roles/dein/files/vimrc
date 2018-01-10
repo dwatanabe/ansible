@@ -1,0 +1,197 @@
+if &compatible
+  set nocompatible
+endif
+
+" Plugins
+let g:dein#install_max_processes = 48
+augroup PluginInstall
+  autocmd!
+  autocmd VimEnter * if dein#check_install() | call dein#install() | endif
+augroup END
+command! -nargs=0 PluginUpdate call dein#update()
+
+" プラグインが実際にインストールされるディレクトリ
+let s:dein_dir = expand('~/.config/vim/dein')
+" dein.vim 本体
+let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
+
+" dein.vim がなければ github から落としてくる
+if &runtimepath !~# '/dein.vim'
+  if !isdirectory(s:dein_repo_dir)
+    execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
+  endif
+  execute 'set runtimepath^=' . fnamemodify(s:dein_repo_dir, ':p')
+endif
+
+if dein#load_state(s:dein_repo_dir)
+  call dein#begin(s:dein_repo_dir)
+  " プラグインリストを収めた TOML ファイル
+  let g:rc_dir    = expand('~/.config/vim/rc')
+  let s:toml      = g:rc_dir . '/dein.toml'
+  let s:lazy_toml = g:rc_dir . '/lazy_dein.toml'
+  " TOML を読み込み、キャッシュしておく
+  call dein#load_toml(s:toml,          {'lazy': 0})
+  call dein#load_toml(s:lazy_toml,     {'lazy': 0})
+
+  call dein#end()
+  call dein#save_state()
+endif
+
+filetype plugin indent on
+" 基本的な設定
+set vb t_vb= " ビープ音を鳴らさない
+" バックスペースキーで削除できるものを指定
+" indent  : 行頭の空白
+" eol     : 改行
+" start   : 挿入モード開始位置より手前の文字
+set backspace=indent,eol,start
+set notagbsearch      " 日本語ヘルプフリーズ問題対策。
+set helplang=ja,en    " ヘルプファイルの検索順
+set hidden            " 保存していないバッファでも切り替えられる
+set shortmess+=I      " 起動時のメッセージを表示しない
+set scrolloff=5       " スクロール時の余白
+set splitbelow        " splitしたときに下に出す。
+set splitright        " vsplitしたときに右に出す。
+set completeopt-=menu,preview " 補完時、現在選択中の候補の付加情報を表示しない。
+" set regexpengine=0  " 正規表現エンジンの設定
+set pastetoggle=<C-p> " pasteモードの切り替えマッピング
+" マウスの設定
+set mouse=
+" 文字コードの設定
+set encoding=utf-8            " Vim内部で使われる文字エンコーディング
+set termencoding=utf-8        " ターミナルで使われるエンコーディング
+set fileencoding=utf-8        " カレントバッファのファイルの文字エンコーディング
+set fileencodings=utf-8,ucs-bom,euc-jp,cp932,sjis   " 読めなかったときに試される順番。
+set fileformats=unix,dos,mac  " 改行コードの自動認識
+set ambiwidth=double          " □とか○の文字があってもカーソル位置がずれないようにする
+" set ambiwidth=single        " □とか○の文字があってもカーソル位置がずれないようにする
+" バックアップ・スワップの設定
+set swapfile        " スワップファイルをつくる
+set updatecount=500 " スワップファイルの更新間隔文字数
+" クリップボードの設定
+set clipboard+=unnamedplus,unnamed " クリップボードの共有
+" colorscheme
+silent! colorscheme molokai
+" ハイライトの設定
+" 全角スペースのハイライト
+function! s:highlight_zenkaku_space()
+  " エラーと同じ色
+  highlight link ZenkakuSpace Error
+  "highlight ZenkakuSpace cterm=underline ctermfg=red guibg=red
+
+  "全角スペースを明示的に表示する。
+  silent! match ZenkakuSpace /　/
+endfunction
+if has('syntax')
+  augroup ZenkakuSpace
+    autocmd!
+    autocmd VimEnter,BufEnter,WinEnter * nested call <SID>highlight_zenkaku_space()
+  augroup END
+endif
+
+" 検索・補完の設定
+set history=500     " コマンド、検索パターンをn個まで履歴に残す
+set ignorecase      " 検索の時に大文字小文字を区別しない
+set smartcase       " 検索altercation / solarized の時に大文字が含まれている場合は区別して検索する
+set wrapscan        " 最後altercation / solarized まで検索したら先頭に戻る
+set incsearch       " インクリメンタルサーチの使用
+set wildmenu        " コマンドライン補完を拡張モードにする
+set wildmode=full   " 複数のマッチがあるときは、全てのマッチを羅列する。
+set wildchar=<Tab>  " コマンドラインの補完キー
+set showfulltag
+" 画面表示の設定
+set title     " タイトルをウインドウ枠に表示する
+set number    " 行番号を表示
+" set number
+function Setnumber()
+  if &number
+    setlocal nonumber
+  else
+    setlocal number
+  endif
+endfunction
+nnoremap <silent> <C-n> :call Setnumber()<CR>
+
+" Anywhere SID
+function! s:SID_PREFIX()
+  return matchstr(expand('<sfile>'), '<SNR>\d\+_\zeSID_PREFIX$')
+endfunction
+
+" Set tabline.
+function! s:my_tabline()  "{{{
+  let s = ''
+  for i in range(1, tabpagenr('$'))
+    let bufnrs = tabpagebuflist(i)
+    let bufnr = bufnrs[tabpagewinnr(i) - 1]  " first window, first appears
+    let no = i  " display 0-origin tabpagenr.
+    let mod = getbufvar(bufnr, '&modified') ? '!' : ' '
+    let title = fnamemodify(bufname(bufnr), ':t')
+    let title = '[' . title . ']'
+    let s .= '%'.i.'T'
+    let s .= '%#' . (i == tabpagenr() ? 'TabLineSel' : 'TabLine') . '#'
+    let s .= no . ':' . title
+    let s .= mod
+    let s .= '%#TabLineFill# '
+  endfor
+  let s .= '%#TabLineFill#%T%=%#TabLine#'
+  return s
+endfunction "}}}
+let &tabline = '%!'. s:SID_PREFIX() . 'my_tabline()'
+set showtabline=2 " 常にタブラインを表示
+
+" The prefix key.
+nnoremap    [Tag]   <Nop>
+nmap    t [Tag]
+" Tab jump
+for n in range(1, 9)
+  execute 'nnoremap <silent> [Tag]'.n  ':<C-u>tabnext'.n.'<CR>'
+endfor
+" t1 で1番左のタブ、t2 で1番左から2番目のタブにジャンプ
+
+map <silent> [Tag]c :tablast <bar> tabnew<CR>
+" tc 新しいタブを一番右に作る
+map <silent> [Tag]x :tabclose<CR>
+" tx タブを閉じる
+map <silent> [Tag]n :tabnext<CR>
+" tn 次のタブ
+map <silent> [Tag]p :tabprevious<CR>
+" tp 前のタブ
+set ruler     " ルーラーを表示
+set list      " タブ文字を CTRL-I（デフォルト） で表示し、行末に $ で表示する
+" タブ文字を次の文字列で視覚化(Listモード (訳注: オプション 'list' がオンのとき) に使われる文字を設定する。
+" cが一文字で、xyが2文字。
+" eol:c     行末の改行文字
+" tab:c     タブ
+" trail:xy  行末のスペース
+" extends:c 折り返した行の行末
+" precedes:c 折り返してきた表の行頭
+" nbsp:c    ノンブレーカブルスペース（？）
+set listchars=tab:>-,extends:<,trail:-
+set showmatch     " 括弧入力時の対応する括弧を表示
+set matchtime=2   " 対応する括弧の表示時間を2にする
+syntax on         " シンタックスハイライトを有効にする
+set hlsearch      " 検索結果文字列のハイライトを有効にする
+set textwidth=0   " 入力されているテキストの最大幅 (行がそれより長くなると、この幅を超えないように空白の後で改行される)を無効にする
+set nowrap        " ウィンドウの幅より長い行でも折り返さない
+"set cursorline   " カーソルラインを表示させる
+"set cursorcolumn " カーソル列を表示させる
+set ttyfast       " 高速ターミナル接続を行う
+" ステータスラインの設定
+set showcmd       " 入力中のコマンドをステータスに表示する
+set laststatus=2  " ステータスラインを常に表示
+set cmdheight=2   " ステータスラインの行数
+" 共通のインデントの設定(ファイルタイプ別はafter/ftplugin/xxx.vimにて設定) {{{
+set autoindent    " オートインデント
+set tabstop=2     " タブが対応する空白の数
+set softtabstop=2 " タブやバックスペースの使用等の編集操作をするときに、タブが対応する空白の数
+set shiftwidth=2  " インデントの各段階に使われる空白の数
+set expandtab     " タブは空白として入力する（実際にTABを入力したい場合は<C-V><TAB>）
+" 共通オートコマンド
+augroup MyAutoCommands
+  autocmd!
+  " カーソル位置を記憶する
+  autocmd BufReadPost *
+     \ if line("'\"") > 0 && line("'\"") <= line("$") |
+     \   exe "normal g`\"" |
+     \ endif
+augroup END

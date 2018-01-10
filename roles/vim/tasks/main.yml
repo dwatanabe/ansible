@@ -1,0 +1,4 @@
+# vim:ft=ansible:
+- name: copy directory .vim/{colors,indent,ftdetect}
+  copy: src=vim/ dest={{ home_dir }}/.vim/
+  tags: install-vim

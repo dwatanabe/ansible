@@ -1,0 +1,23 @@
+home_user: dwatanabe
+home_dir: "/Users/{{ home_user }}"
+
+rbenv_install_dir: "{{ home_dir }}/.rbenv"
+ruby_build_install_dir: "{{ rbenv_install_dir }}/plugins/ruby-build"
+ruby_version: 2.4.3
+
+pyenv_install_dir: "{{ home_dir }}/.pyenv"
+python_version: 2.7.12
+
+nvm_install_dir: "{{ home_dir }}/.nvm"
+node_version: v8.1.2
+
+goenv_install_dir: "{{ home_dir }}/.goenv"
+go_version: 1.8.3
+
+# vim plugin manager
+dein_install_dir: "{{ home_dir }}/.cache/dein"
+dein_configfile_dir: "{{ home_dir }}/.config"
+
+# zsh's plugin manager
+zplug_install_dir: "{{ home_dir }}/.zplug"
+prezto_install_dir: "{{ home_dir }}/.zprezto"

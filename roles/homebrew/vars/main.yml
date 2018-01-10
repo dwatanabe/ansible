@@ -1,0 +1,44 @@
+# vim:ft=ansible:
+homebrew_packages:
+  - name: tmux
+  - name: tmux-mem-cpu-load
+  - name: tig
+  - name: hub
+  - name: lua
+  - name: gettext
+  - name: jq
+  - name: pwgen
+  - name: peco
+  - name: rbenv
+  - name: ruby-build
+  - name: pyenv
+  - name: goenv
+  - name: ghq
+  - name: zsh
+  - name: wget
+  - name: ssh-copy-id
+  - name: reattach-to-user-namespace
+  - name: vim
+    install_options: with-lua,with-gettext,with-custom-ruby
+
+homebrew_cask_packages:
+  - name: alfred
+  - name: iterm2
+  - name: bettertouchtool
+  - name: caffeine
+  - name: karabiner
+  - name: karabiner-elements
+  - name: hosts
+  - name: clipy
+  - name: sublime-text
+  - name: xmind
+  - name: shiftit
+  - name: google-japanese-ime
+  - name: firefox
+  - name: dropbox
+  - name: mysqlworkbench
+  - name: atom
+  - name: adobe-acrobat-reader
+  - name: chefdk
+  #- name:  google-chrom
+

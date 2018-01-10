@@ -1,0 +1,22 @@
+# vim:ft=ansible:
+- name: install homebrew packages
+  homebrew:
+    name: "{{ item.name }}"
+    state: present
+    install_options: "{{ item.install_options | default() }}"
+  with_items:
+    - "{{ homebrew_packages }}"
+  tags: install-homebrew-packages
+
+- name: add homebrew tap repository
+  homebrew_tap: tap=caskroom/cask state=present
+  tags: install-homebrew_tap
+
+- name: install homebrew cask packages
+  homebrew_cask:
+    name: "{{ item.name }}"
+    state: present
+  with_items:
+    - "{{ homebrew_cask_packages }}"
+  tags: install-homebrew_cask-packages
+

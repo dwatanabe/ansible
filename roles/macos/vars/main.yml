@@ -1,0 +1,129 @@
+osx_defaults:
+  global:
+    - domain: NSGlobalDomain
+      key: NSNavPanelExpandedStateForSaveMode
+      type: bool
+      value: true
+    - domain: NSGlobalDomain
+      key: KeyRepeat
+      type: int
+      value: 2
+    - domain: NSGlobalDomain
+      key: InitialKeyRepeat
+      type: int
+      value: 15
+    - domain: NSGlobalDomain
+      key: com.apple.swipescrolldirection
+      type: bool
+      value: false
+  menuextra:
+    - domain: com.apple.menuextra.battery
+      key: ShowPercent
+      type: string
+      value: 'YES'
+    - domain: com.apple.menuextra.clock
+      key: DateFormat
+      type: string
+      value: 'M\u6708d\u65e5(EEE)  H:mm:ss'
+  dock:
+    - domain: com.apple.dock
+      key: orientation
+      type: string
+      value: left
+    - domain: com.apple.dock
+      key: mineffect
+      type: string
+      value: scale
+    - domain: com.apple.dock
+      key: tilesize
+      type: int
+      value: 30
+    - domain: com.apple.dock
+      key: largesize
+      type: float
+      value: 65
+#    - domain: com.apple.dock
+#      key: expose-group-by-app
+#      type: bool
+#      value: false
+#    - domain: com.apple.dock
+#      key: persistent-apps
+#      type: string
+#      value: <array/>
+#    - domain: com.apple.dock
+#      key: persistent-others
+#      type: string
+#      value: <array/>
+  finder:
+    - domain: com.apple.finder
+      key: FXPreferredViewStyle
+      type: string
+      value: clmv
+    - domain: com.apple.finder
+      key: _FXShowPosixPathInTitle
+      type: bool
+      value: true
+    - domain: com.apple.finder
+      key: ShowStatusBar
+      type: bool
+      value: true
+    - domain: com.apple.finder
+      key: AppleShowAllFiles
+      type: bool
+      value: true
+    - domain: com.apple.finder
+      key: QLEnableTextSelection
+      type: bool
+      value: true
+    - domain: com.apple.finder
+      key: DisableAllAnimations
+      type: bool
+      value: true
+    - domain: com.apple.finder
+      key: ShowHardDrivesOnDesktop
+      type: bool
+      value: true
+    - domain: com.apple.finder
+      key: ShowMountedServersOnDesktop
+      type: bool
+      value: true
+    - domain: com.apple.finder
+      key: ShowExternalHardDrivesOnDesktop
+      type: bool
+      value: false
+    - domain: com.apple.finder
+      key: ShowRemovableMediaOnDesktop
+      type: bool
+      value: false
+    - domain: com.apple.finder
+      key: NewWindowTargetPath
+      type: string
+      value: 'file:///Users/dwatanab/'
+  system:
+    - domain: com.apple.desktopservices
+      key: DSDontWriteNetworkStores
+      type: bool
+      value: true
+  screencapture:
+    - domain: com.apple.screencapture
+      key: name
+      type: string
+      value: 'SC_'
+    - domain: com.apple.screencapture
+      key: disable-shadow
+      type: bool
+      value: true
+  trackpad:
+    - domain: com.apple.driver.AppleBluetoothMultitouch.trackpad
+      key: Clicking
+      type: bool
+      value: true
+#  others:
+#    - domain: -g
+#      key: com.apple.keyboard.fnState
+#      type: bool
+#      value: true
+#    - domain: -g
+#      key: com.apple.swipescrolldirection
+#      type: bool
+#      value: false

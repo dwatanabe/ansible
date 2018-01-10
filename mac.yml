@@ -1,0 +1,10 @@
+# vim:ft=ansible:
+---
+- hosts: localhost
+  connection: local
+  roles:
+    - { role: homebrew }  # install homebrew & homebrew_cask packages
+    - { role: macos }     # setting by macos's defaults command
+    - { role: dein }
+    - { role: zplug }
+

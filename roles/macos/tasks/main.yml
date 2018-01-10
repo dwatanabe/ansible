@@ -1,0 +1,78 @@
+# vim:ft=ansible:
+- name: global macOS settings by defaults command
+  osx_defaults:
+    domain: "{{ item.domain }}"
+    key: "{{ item.key }}"
+    type: "{{ item.type }}"
+    value: "{{ item.value }}"
+    state: present
+  with_items:
+    - "{{ osx_defaults.global }}"
+  tags: macos-global
+
+- name: menuextra macOS settings by defaults command
+  osx_defaults:
+    domain: "{{ item.domain }}"
+    key: "{{ item.key }}"
+    type: "{{ item.type }}"
+    value: "{{ item.value }}"
+    state: present
+  with_items:
+    - "{{ osx_defaults.menuextra }}"
+  tags: macos-menuextra
+
+- name: dock macOS settings by defaults command
+  osx_defaults:
+    domain: "{{ item.domain }}"
+    key: "{{ item.key }}"
+    type: "{{ item.type }}"
+    value: "{{ item.value }}"
+    state: present
+  with_items:
+    - "{{ osx_defaults.dock }}"
+  tags: macos-dock
+
+- name: finder macOS settings by defaults command
+  osx_defaults:
+    domain: "{{ item.domain }}"
+    key: "{{ item.key }}"
+    type: "{{ item.type }}"
+    value: "{{ item.value }}"
+    state: present
+  with_items:
+    - "{{ osx_defaults.finder }}"
+  tags: macos-finder
+
+- name: system macOS settings by defaults command
+  osx_defaults:
+    domain: "{{ item.domain }}"
+    key: "{{ item.key }}"
+    type: "{{ item.type }}"
+    value: "{{ item.value }}"
+    state: present
+  with_items:
+    - "{{ osx_defaults.system }}"
+  tags: macos-system
+
+- name: screencapture macOS settings by defaults command
+  osx_defaults:
+    domain: "{{ item.domain }}"
+    key: "{{ item.key }}"
+    type: "{{ item.type }}"
+    value: "{{ item.value }}"
+    state: present
+  with_items:
+    - "{{ osx_defaults.screencapture }}"
+  tags: macos-screencapture
+
+- name: trackpad macOS settings by defaults command
+  osx_defaults:
+    domain: "{{ item.domain }}"
+    key: "{{ item.key }}"
+    type: "{{ item.type }}"
+    value: "{{ item.value }}"
+    state: present
+  with_items:
+    - "{{ osx_defaults.trackpad }}"
+  tags: macos-trackpad
+

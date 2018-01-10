@@ -1,0 +1,65 @@
+# vim ft=ansible:
+- name: git clone zplug ~/.zplug
+  git: repo=https://github.com/zplug/zplug dest={{ zplug_install_dir }}
+  tags: install-zplug
+
+- name: create readme-zsh file
+  args:
+    creates: "{{ home_dir }}/readme-zsh.txt"
+  shell: |
+    (
+    echo "source {{ zplug_install_dir }}/init.zsh"
+    echo 'zplug "zplug/zplug"'
+    echo 'zplug "sorin-ionescu/prezto"'
+    echo 'zplug load --verbose'
+    echo 'zplug install'
+    echo 'zplug status'
+    echo 'source .zsh_profile write in .zshrc'
+    ) > {{ home_dir }}/readme-zsh.txt
+  tags: install-zplug
+
+- name: execute zplug
+  args:
+    executable: /usr/local/bin/zsh  
+    chdir: "{{ home_dir }}"
+  shell: |
+    source "{{ zplug_install_dir }}/init.zsh"
+    zplug "zplug/zplug"
+    zplug "sorin-ionescu/prezto"
+    zplug load
+    zplug install
+    zplug status
+  ignore_errors: true
+  register: result
+  retries: 2
+  delay: 30
+  until: result | success
+  tags: install-zplug
+
+  # zplugでpreztoをgit cloneしてくるのに30秒程度かかるので待つ
+- name: pause
+  pause: seconds=40
+
+- name: zplug's prezto of symbolic link
+  file: src={{ home_dir }}/.zplug/repos/sorin-ionescu/prezto dest={{ prezto_install_dir }} state=link force=yes
+  tags: install-zplug
+
+- name: prezto of symbolic link
+  file: src={{ item.src }} dest={{ item.dest }} state=link force=yes
+  with_items:
+    - { src: "{{ prezto_install_dir }}/runcoms/zlogin", dest: "{{ home_dir }}/.zlogin" }
+    - { src: "{{ prezto_install_dir }}/runcoms/zlogout", dest: "{{ home_dir }}/.zlogout" }
+    - { src: "{{ prezto_install_dir }}/runcoms/zpreztorc", dest: "{{ home_dir }}/.zpreztorc" }
+    - { src: "{{ prezto_install_dir }}/runcoms/zprofile", dest: "{{ home_dir }}/.zprofile" }
+    - { src: "{{ prezto_install_dir }}/runcoms/zshenv", dest: "{{ home_dir }}/.zshenv" }
+    - { src: "{{ prezto_install_dir }}/runcoms/zshrc", dest: "{{ home_dir }}/.zshrc" }
+  tags: install-zsh/zplug
+
+- name: deploy .zsh_profile
+  copy: src=zsh_profile dest={{ home_dir }}/.zsh_profile
+  tags: install-zplug
+
+- name: deploy .zpreztorc
+  copy: src=zpreztorc dest={{ prezto_install_dir }}/runcoms/zpreztorc
+  tags: install-zplug
+

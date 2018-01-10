@@ -1,0 +1,36 @@
+# ruby plugins
+[[plugins]]
+repo = 'vim-ruby/vim-ruby'
+on_ft = 'ruby'
+
+[[plugins]]
+repo = 'tpope/vim-rails'
+on_ft = 'ruby'
+
+[[plugins]]
+repo = 'tpope/vim-bundler'
+on_ft = 'ruby'
+
+[[plugins]]
+repo = 'osyo-manga/vim-monster'
+on_ft = 'ruby'
+hook_add = '''
+let g:monster#completion#rcodetools#backend = "async_rct_complete"
+'''
+
+[[plugins]]
+repo = 'todesking/ruby_hl_lvar.vim'
+
+[[plugins]]
+repo = 'slim-template/vim-slim.git'
+on_ft = 'slim'
+
+[[plugins]]
+repo = 'tpope/vim-dispatch'
+on_ft = 'ruby'
+
+[[plugins]]
+repo = 'thoughtbot/vim-rspec'
+on_ft = 'ruby'
+
+# ruby plugins

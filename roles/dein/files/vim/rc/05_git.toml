@@ -1,0 +1,28 @@
+# git plugins
+[[plugins]]
+repo = 'tpope/vim-fugitive'
+
+[[plugins]]
+repo = 'airblade/vim-gitgutter'
+
+[[plugins]]
+repo = 'jaxbot/github-issues.vim'
+lazy = 1
+
+[[plugins]]
+repo = 'moznion/github-commit-comment.vim'
+lazy = 1
+
+[[plugins]]
+repo = 'rhysd/github-complete.vim'
+
+[[plugins]]
+repo = 'takahirojin/gbr.vim'
+
+[[plugins]]
+repo = 'mattn/gist-vim'
+
+[[plugins]]
+repo = 'lambdalisue/vim-gista'
+
+# git plugins

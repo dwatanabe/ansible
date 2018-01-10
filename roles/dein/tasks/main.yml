@@ -1,0 +1,22 @@
+# vim:ft=ansible:
+- name: create dein install dir $HOME/.cache/dein
+  file: path={{ item }} state=directory
+  with_items:
+    - "{{ dein_install_dir }}"
+  tags: install-dein
+
+- name: copy directory for plugin vim/rc/*.toml [$HOME/.config]
+  copy: src={{ item.src }} dest={{ item.dest }}
+  with_items:
+    - { src: vim, dest: "{{ dein_configfile_dir }}" }
+  tags: install-dein
+
+- name: copy file for setting ("{{ home_dir }}"/.vimrc
+  copy: src={{ item.src }} dest={{ item.dest }}
+  with_items:
+    - { src: vimrc, dest: "{{ home_dir }}/.vimrc" } 
+  tags: install-dein
+
+- name: copy directory .vim/{colors,indent,ftdetect}
+  copy: src=vim/ dest={{ home_dir }}/.vim/
+  tags: install-dein
