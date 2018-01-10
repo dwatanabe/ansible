@@ -19,6 +19,7 @@
     state: present
   with_items:
     - "{{ osx_defaults.menuextra }}"
+  notify: restart SystemUIServer
   tags: macos-menuextra
 
 - name: dock macOS settings by defaults command
@@ -30,6 +31,7 @@
     state: present
   with_items:
     - "{{ osx_defaults.dock }}"
+  notify: restart Dock
   tags: macos-dock
 
 - name: finder macOS settings by defaults command
@@ -41,6 +43,7 @@
     state: present
   with_items:
     - "{{ osx_defaults.finder }}"
+  notify: restart Finder
   tags: macos-finder
 
 - name: system macOS settings by defaults command
