@@ -116,8 +116,8 @@ osx_defaults:
   trackpad:
     - domain: com.apple.driver.AppleBluetoothMultitouch.trackpad
       key: Clicking
-      type: bool
-      value: true
+      type: int
+      value: 1
 #  others:
 #    - domain: -g
 #      key: com.apple.keyboard.fnState
