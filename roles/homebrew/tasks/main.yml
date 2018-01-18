@@ -1,4 +1,10 @@
 # vim:ft=ansible:
+- name: add homebrew tap repository
+  homebrew_tap: tap="{{ item.name }}" state=present
+  with_items:
+    - "{{ homebrew_tap }}"
+  tags: install-homebrew_tap
+
 - name: install homebrew packages
   homebrew:
     name: "{{ item.name }}"
@@ -7,13 +13,6 @@
   with_items:
     - "{{ homebrew_packages }}"
   tags: install-homebrew-packages
-
-- name: add homebrew tap repository
-  homebrew_tap: tap="{{ item }}" state=present
-  with_items:
-    - caskroom/cask
-    - cloudfoundry/tap
-  tags: install-homebrew_tap
 
 - name: install homebrew cask packages
   homebrew_cask:

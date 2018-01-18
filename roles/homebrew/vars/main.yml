@@ -1,4 +1,9 @@
 # vim:ft=ansible:
+
+homebrew_tap:
+  - name: caskroom/cask
+  - name: cloudfoundry/tap
+
 homebrew_packages:
   - name: tmux
   - name: tmux-mem-cpu-load
