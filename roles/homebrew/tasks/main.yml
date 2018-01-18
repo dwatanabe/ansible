@@ -9,7 +9,10 @@
   tags: install-homebrew-packages
 
 - name: add homebrew tap repository
-  homebrew_tap: tap=caskroom/cask state=present
+  homebrew_tap: tap="{{ item }}" state=present
+  with_items:
+    - caskroom/cask
+    - cloudfoundry/tap
   tags: install-homebrew_tap
 
 - name: install homebrew cask packages

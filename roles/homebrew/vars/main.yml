@@ -20,6 +20,7 @@ homebrew_packages:
   - name: reattach-to-user-namespace
   - name: vim
     install_options: with-lua,with-gettext,with-custom-ruby
+  - name: cf-cli
 
 homebrew_cask_packages:
   - name: alfred
