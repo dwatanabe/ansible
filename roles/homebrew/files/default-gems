@@ -1,0 +1,5 @@
+bundler
+rake
+pry
+rubocop
+serverspec

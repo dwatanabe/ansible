@@ -22,3 +22,6 @@
     - "{{ homebrew_cask_packages }}"
   tags: install-homebrew_cask-packages
 
+- name: copy rbenv-default-gems of setting file
+  copy: src=default-gems dest={{ rbenv_install_dir }}/default-gems
+  tags: install-homebrew-packages

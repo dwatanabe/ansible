@@ -2,6 +2,7 @@
 ---
 - hosts: localhost
   connection: local
+  gather_facts: no
   roles:
     - { role: homebrew }  # install homebrew & homebrew_cask packages
     - { role: macos }     # setting by macos's defaults command

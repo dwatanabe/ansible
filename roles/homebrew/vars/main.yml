@@ -16,6 +16,7 @@ homebrew_packages:
   - name: pwgen
   - name: peco
   - name: rbenv
+  - name: rbenv-default-gems
   - name: ruby-build
   - name: pyenv
   - name: pyenv-virtualenv
