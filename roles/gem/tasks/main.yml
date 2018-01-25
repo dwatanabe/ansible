@@ -1,0 +1,9 @@
+# vim:ft=ansible
+- name: install packages from gem
+  gem: name={{ item }} executable={{ rbenv_install_dir }}/shims/gem user_install=False
+  with_items:
+    - rake
+    - bundler
+    - pry
+    - serverspec
+    - rubocop
