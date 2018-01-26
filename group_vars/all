@@ -1,5 +1,5 @@
 home_user: dwatanabe
-home_dir: "/Users/{{ home_user }}"
+home_dir: "{{ ansible_env.HOME }}"
 
 rbenv_install_dir: "{{ home_dir }}/.rbenv"
 ruby_build_install_dir: "{{ rbenv_install_dir }}/plugins/ruby-build"
