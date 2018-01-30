@@ -49,5 +49,6 @@ homebrew_cask_packages:
   - name: atom
   - name: adobe-acrobat-reader
   - name: chefdk
+  - name: java
   #- name:  google-chrom
 
