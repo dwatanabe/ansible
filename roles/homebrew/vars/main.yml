@@ -8,6 +8,7 @@ homebrew_packages:
   - name: tmux
   - name: tmux-mem-cpu-load
   - name: git
+  - name: git-now
   - name: tig
   - name: hub
   - name: lua
