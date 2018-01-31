@@ -1,7 +1,7 @@
 os:
   - osx
 before_install:
-  - gem install rspec
+  - gem install rspec serverspec
   - brew update
   - brew install python3
   - brew install ansible
