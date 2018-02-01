@@ -18,5 +18,5 @@ $ brew install ansible
 ## Usage
 
 ```
-ansible-playbook mac.yml -i host -vv
+ansible-playbook mac.yml -i hosts -vv
 ```
