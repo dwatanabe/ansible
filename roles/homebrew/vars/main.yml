@@ -51,5 +51,6 @@ homebrew_cask_packages:
   - name: adobe-acrobat-reader
   - name: chefdk
   - name: java
+  - name: slack
   #- name:  google-chrom
 
