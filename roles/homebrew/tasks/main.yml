@@ -1,4 +1,10 @@
 # vim:ft=ansible:
+- name: untap repository
+  homebrew_tap: tap="{{ item.name }}" state=absent
+  with_items:
+    - "{{ homebrew_tap }}"
+  tags: install-homebrew_tap
+
 - name: add homebrew tap repository
   homebrew_tap: tap="{{ item.name }}" state=present
   with_items:
