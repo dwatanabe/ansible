@@ -1,7 +1,7 @@
 # vim:ft=ansible:
 
 homebrew_tap:
-  - name: caskroom/cask
+  #- name: caskroom/cask
   - name: cloudfoundry/tap
 
 homebrew_packages:
